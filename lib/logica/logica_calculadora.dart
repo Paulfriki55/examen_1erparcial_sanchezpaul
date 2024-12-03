@@ -21,6 +21,26 @@ class LogicaCalculadora {
     return a % b;
   }
 
+  bool esConmutativa(String operacion) {
+    switch (operacion) {
+      case 'suma':
+      case 'multiplicacion':
+        return true;
+      case 'resta':
+      case 'division':
+      case 'modulo':
+        return false;
+      default:
+        throw Exception('Operación no reconocida');
+    }
+  }
+
+  String mensajeConmutatividad(String operacion) {
+    return esConmutativa(operacion)
+        ? "Esta operación es conmutativa"
+        : "Esta operación no es conmutativa";
+  }
+
   ResultadosCalculadora calcularTodo(double num1, double num2) {
     final resultados = ResultadosCalculadora(
       num1: num1,
@@ -34,6 +54,13 @@ class LogicaCalculadora {
         'division2': dividir(num2, num1),
         'modulo1': modulo(num1.toInt(), num2.toInt()),
         'modulo2': modulo(num2.toInt(), num1.toInt()),
+      },
+      mensajesConmutatividad: {
+        'suma': mensajeConmutatividad('suma'),
+        'resta': mensajeConmutatividad('resta'),
+        'multiplicacion': mensajeConmutatividad('multiplicacion'),
+        'division': mensajeConmutatividad('division'),
+        'modulo': mensajeConmutatividad('modulo'),
       },
     );
     _historial.add(resultados);

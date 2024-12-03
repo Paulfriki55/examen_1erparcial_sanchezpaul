@@ -42,6 +42,13 @@ class _EstadoPantallaCalculadora extends State<PantallaCalculadora> with SingleT
       final num1 = double.parse(_controladorNum1.text);
       final num2 = double.parse(_controladorNum2.text);
 
+      if (num2 == 0) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('No se puede dividir por cero')),
+        );
+        return;
+      }
+
       setState(() {
         _resultados = _logicaCalculadora.calcularTodo(num1, num2);
       });
@@ -117,6 +124,9 @@ class _EstadoPantallaCalculadora extends State<PantallaCalculadora> with SingleT
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Por favor ingrese un número';
+                    }
+                    if (double.tryParse(value) == 0) {
+                      return 'El número no puede ser cero';
                     }
                     return null;
                   },

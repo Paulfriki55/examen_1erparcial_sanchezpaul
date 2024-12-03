@@ -36,14 +36,14 @@ class WidgetResultados extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _construirFilaResultado(context, 'Suma', '${resultados.num1} + ${resultados.num2}', resultados.resultados['suma']),
-              _construirFilaResultado(context, 'Resta', '${resultados.num1} - ${resultados.num2}', resultados.resultados['resta1']),
-              _construirFilaResultado(context, 'Resta invertida', '${resultados.num2} - ${resultados.num1}', resultados.resultados['resta2']),
-              _construirFilaResultado(context, 'Producto', '${resultados.num1} * ${resultados.num2}', resultados.resultados['multiplicacion']),
-              _construirFilaResultado(context, 'División', '${resultados.num1} / ${resultados.num2}', resultados.resultados['division1']),
-              _construirFilaResultado(context, 'División invertida', '${resultados.num2} / ${resultados.num1}', resultados.resultados['division2']),
-              _construirFilaResultado(context, 'Módulo', '${resultados.num1} % ${resultados.num2}', resultados.resultados['modulo1']),
-              _construirFilaResultado(context, 'Módulo invertido', '${resultados.num2} % ${resultados.num1}', resultados.resultados['modulo2']),
+              _construirFilaResultado(context, 'Suma', '${resultados.num1} + ${resultados.num2}', resultados.resultados['suma'], resultados.mensajesConmutatividad['suma']!),
+              _construirFilaResultado(context, 'Resta', '${resultados.num1} - ${resultados.num2}', resultados.resultados['resta1'], resultados.mensajesConmutatividad['resta']!),
+              _construirFilaResultado(context, 'Resta invertida', '${resultados.num2} - ${resultados.num1}', resultados.resultados['resta2'], resultados.mensajesConmutatividad['resta']!),
+              _construirFilaResultado(context, 'Producto', '${resultados.num1} * ${resultados.num2}', resultados.resultados['multiplicacion'], resultados.mensajesConmutatividad['multiplicacion']!),
+              _construirFilaResultado(context, 'División', '${resultados.num1} / ${resultados.num2}', resultados.resultados['division1'], resultados.mensajesConmutatividad['division']!),
+              _construirFilaResultado(context, 'División invertida', '${resultados.num2} / ${resultados.num1}', resultados.resultados['division2'], resultados.mensajesConmutatividad['division']!),
+              _construirFilaResultado(context, 'Módulo', '${resultados.num1} % ${resultados.num2}', resultados.resultados['modulo1'], resultados.mensajesConmutatividad['modulo']!),
+              _construirFilaResultado(context, 'Módulo invertido', '${resultados.num2} % ${resultados.num1}', resultados.resultados['modulo2'], resultados.mensajesConmutatividad['modulo']!),
             ],
           ),
         ),
@@ -51,15 +51,21 @@ class WidgetResultados extends StatelessWidget {
     );
   }
 
-  Widget _construirFilaResultado(BuildContext context, String operacion, String ecuacion, dynamic resultado) {
+  Widget _construirFilaResultado(BuildContext context, String operacion, String ecuacion, dynamic resultado, String mensajeConmutatividad) {
     final tema = Theme.of(context);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(operacion, style: tema.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
-          Text('$ecuacion = ${resultado.toStringAsFixed(2)}', style: tema.textTheme.bodyLarge),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(operacion, style: tema.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
+              Text('$ecuacion = ${resultado.toStringAsFixed(2)}', style: tema.textTheme.bodyLarge),
+            ],
+          ),
+          Text(mensajeConmutatividad, style: tema.textTheme.bodySmall?.copyWith(fontStyle: FontStyle.italic)),
         ],
       ),
     );
